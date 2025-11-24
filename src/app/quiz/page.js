@@ -9,81 +9,94 @@ export default function Quiz() {
     const [showScore, setShowScore] = useState(false);
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [isCorrect, setIsCorrect] = useState(null);
+    const [showExplanation, setShowExplanation] = useState(false);
 
     const questions = [
         {
             question: "ما هو المعدل الطبيعي لضغط الدم؟",
             options: ["120/80", "140/90", "100/60", "130/85"],
             answer: "120/80",
+            explanation: "المعدل الطبيعي والمثالي لضغط الدم هو أقل من 120/80 ملم زئبق."
         },
         {
             question: "أي فيتامين يتم إنتاجه في الجلد عند التعرض للشمس؟",
             options: ["فيتامين C", "فيتامين D", "فيتامين A", "فيتامين B12"],
             answer: "فيتامين D",
+            explanation: "أشعة الشمس تحفز الجلد على إنتاج فيتامين D الضروري لصحة العظام."
         },
         {
             question: "كم عدد عظام جسم الإنسان البالغ؟",
             options: ["206", "250", "180", "300"],
             answer: "206",
+            explanation: "يولد الطفل بحوالي 270 عظمة، وتلتحم بعضها لتصبح 206 عظمة عند البلوغ."
         },
         {
             question: "ما هو العضو المسؤول عن تنقية الدم من السموم؟",
             options: ["القلب", "الكبد", "المعدة", "الرئة"],
             answer: "الكبد",
+            explanation: "الكبد يقوم بفلترة الدم وتنقيته من السموم والمواد الضارة."
         },
         {
             question: "ما هو الهرمون المسؤول عن تنظيم مستوى السكر في الدم؟",
             options: ["الأدرينالين", "الإنسولين", "الثيروكسين", "الكورتيزون"],
             answer: "الإنسولين",
+            explanation: "الإنسولين يفرزه البنكرياس ليسمح للخلايا بامتصاص السكر من الدم."
         },
         {
             question: "أي فصيلة دم تعتبر 'المعطي العام'؟",
             options: ["A+", "O-", "AB+", "B-"],
             answer: "O-",
+            explanation: "فصيلة O- لا تحتوي على مستضدات، لذا يمكن نقلها لأي فصيلة أخرى بأمان."
         },
         {
             question: "ما هو أكبر عضو في جسم الإنسان؟",
             options: ["الكبد", "الجلد", "الرئة", "الأمعاء"],
             answer: "الجلد",
+            explanation: "الجلد هو أكبر عضو ويغطي كامل الجسم لحمايته."
         },
         {
             question: "كم عدد حجرات القلب؟",
             options: ["2", "3", "4", "5"],
             answer: "4",
+            explanation: "القلب يتكون من 4 حجرات: أذين أيمن، أذين أيسر، بطين أيمن، وبطين أيسر."
         },
         {
             question: "ما هو العنصر الكيميائي الذي يرمز له بـ Fe؟",
             options: ["الحديد", "الفلور", "الزنك", "النحاس"],
             answer: "الحديد",
+            explanation: "Fe هو الرمز الكيميائي للحديد (Ferrum)، وهو ضروري لنقل الأكسجين في الدم."
         },
         {
             question: "ما هي المدة المثالية لغسل اليدين؟",
             options: ["5 ثواني", "10 ثواني", "20 ثانية", "دقيقة كاملة"],
             answer: "20 ثانية",
+            explanation: "توصي المنظمات الصحية بغسل اليدين لمدة 20 ثانية على الأقل للقضاء على الجراثيم."
         },
     ];
 
     const handleAnswerClick = (option) => {
-        if (selectedAnswer) return; // Prevent multiple clicks
+        if (selectedAnswer) return;
 
         setSelectedAnswer(option);
         const correct = option === questions[currentQuestion].answer;
         setIsCorrect(correct);
+        setShowExplanation(true);
 
         if (correct) {
             setScore(score + 1);
         }
+    };
 
-        setTimeout(() => {
-            const nextQuestion = currentQuestion + 1;
-            if (nextQuestion < questions.length) {
-                setCurrentQuestion(nextQuestion);
-                setSelectedAnswer(null);
-                setIsCorrect(null);
-            } else {
-                setShowScore(true);
-            }
-        }, 1500);
+    const handleNextQuestion = () => {
+        const nextQuestion = currentQuestion + 1;
+        if (nextQuestion < questions.length) {
+            setCurrentQuestion(nextQuestion);
+            setSelectedAnswer(null);
+            setIsCorrect(null);
+            setShowExplanation(false);
+        } else {
+            setShowScore(true);
+        }
     };
 
     const resetQuiz = () => {
@@ -92,6 +105,7 @@ export default function Quiz() {
         setShowScore(false);
         setSelectedAnswer(null);
         setIsCorrect(null);
+        setShowExplanation(false);
     };
 
     return (
@@ -139,7 +153,9 @@ export default function Quiz() {
                                                 ? option === questions[currentQuestion].answer
                                                     ? quizStyles.correct
                                                     : quizStyles.wrong
-                                                : ""
+                                                : selectedAnswer !== null && option === questions[currentQuestion].answer
+                                                    ? quizStyles.correct // Show correct answer even if wrong selected
+                                                    : ""
                                             }`}
                                         disabled={selectedAnswer !== null}
                                     >
@@ -147,6 +163,19 @@ export default function Quiz() {
                                     </button>
                                 ))}
                             </div>
+
+                            {showExplanation && (
+                                <div className={quizStyles.explanationBox}>
+                                    <h3 className={isCorrect ? quizStyles.correctText : quizStyles.wrongText}>
+                                        {isCorrect ? "إجابة صحيحة! ✅" : "إجابة خاطئة ❌"}
+                                    </h3>
+                                    <p><strong>الإجابة الصحيحة:</strong> {questions[currentQuestion].answer}</p>
+                                    <p className={quizStyles.explanationText}>{questions[currentQuestion].explanation}</p>
+                                    <button onClick={handleNextQuestion} className="btn" style={{ marginTop: '1rem' }}>
+                                        {currentQuestion === questions.length - 1 ? "عرض النتيجة" : "السؤال التالي"}
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     )}
                 </div>

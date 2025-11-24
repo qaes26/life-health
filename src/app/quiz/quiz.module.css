@@ -88,6 +88,31 @@
     border-color: #F44336 !important;
 }
 
+.explanationBox {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.correctText {
+    color: #4CAF50;
+    margin-bottom: 0.5rem;
+}
+
+.wrongText {
+    color: #F44336;
+    margin-bottom: 0.5rem;
+}
+
+.explanationText {
+    margin-top: 0.5rem;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
 @keyframes slideUp {
     from {
         opacity: 0;
@@ -97,6 +122,16 @@
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
     }
 }
 
