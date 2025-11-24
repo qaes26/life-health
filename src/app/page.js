@@ -70,6 +70,12 @@ export default function Home() {
                             <p>تحدى نفسك في اختبار المعلومات الطبية الممتع.</p>
                         </Link>
 
+                        <Link href="/qais-ai" className="card" style={{ border: '2px solid #667eea', background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)' }}>
+                            <div className={styles.icon}>🤖</div>
+                            <h3>قيس AI - المساعد الذكي</h3>
+                            <p>اسأل الذكاء الاصطناعي أي سؤال طبي أو صحي!</p>
+                        </Link>
+
                         <Link href="/first-aid" className="card">
                             <div className={styles.icon}>🚑</div>
                             <h3>الإسعافات الأولية</h3>
