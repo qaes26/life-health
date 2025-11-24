@@ -52,3 +52,33 @@
     margin-bottom: 0.5rem;
     line-height: 1.6;
 }
+
+/* New Styles for Tips Grid */
+.tipsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.tipCard {
+    background: var(--background-color);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-right: 4px solid var(--secondary-color);
+    position: relative;
+    transition: transform 0.2s;
+}
+
+.tipCard:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tipNumber {
+    display: block;
+    font-weight: 800;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
