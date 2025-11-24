@@ -64,6 +64,12 @@ export default function Home() {
                             <p>100 نصيحة للتعايش مع السكري والضغط.</p>
                         </Link>
 
+                        <Link href="/quiz" className="card" style={{ border: '2px solid var(--secondary-color)' }}>
+                            <div className={styles.icon}>🎓</div>
+                            <h3>اختبر معلوماتك</h3>
+                            <p>تحدى نفسك في اختبار المعلومات الطبية الممتع.</p>
+                        </Link>
+
                         <Link href="/first-aid" className="card">
                             <div className={styles.icon}>🚑</div>
                             <h3>الإسعافات الأولية</h3>
