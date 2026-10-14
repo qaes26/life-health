@@ -1,56 +1,142 @@
-# Qais AI Setup Instructions
+# 🤖 دليل إعداد واستخدام قيس AI وواجهة برمجة التطبيقات (API)
 
-## 🔑 Get Your Gemini API Key
-
-1. Visit [Google AI Studio](https://makersuite.google.com/app/apikey)
-2. Sign in with your Google account
-3. Click "Create API Key"
-4. Copy your API key
-
-## ⚙️ Configure the Application
-
-1. Create a file named `.env.local` in the root directory of your project:
-   ```
-   c:\Users\طلال ابو قيس\Desktop\my new code\.env.local
-   ```
-
-2. Add your API key to the file:
-   ```
-   GEMINI_API_KEY=your_actual_api_key_here
-   ```
-
-3. Save the file
-
-## 🚀 Run the Application
-
-1. Open terminal in your project directory
-2. Start the development server:
-   ```bash
-   npm run dev
-   ```
-
-3. Open [http://localhost:3000](http://localhost:3000) in your browser
-
-4. Click on the **"قيس AI - المساعد الذكي"** card on the homepage
-
-5. Start asking questions!
-
-## ✨ Features
-
-- **Arabic Language Support**: All responses in Arabic
-- **Medical Focus**: Specialized in health and medical questions
-- **Beautiful UI**: Modern, gradient-based design
-- **Responsive**: Works on desktop and mobile
-- **Real-time Chat**: Get instant AI responses
-
-## 📝 Example Questions
-
-Try asking:
-- ما هي أفضل الأطعمة لتقوية المناعة؟
-- كيف أعتني بصحتي النفسية؟
-- ما هي أعراض نقص فيتامين د؟
-- نصائح للحفاظ على صحة القلب
+مرحباً بك في **قيس AI**، المساعد الطبي الذكي المتخصص التابع لـ **دليل قيس الطبي** (موسوعة طبية شاملة تضم أكثر من 800 نصيحة طبية موثقة في مختلف المجالات الصحية، إعداد وتطوير: **قيس طلال الجازي**).
 
 ---
 
-**Note**: The API key is free to use with generous limits. Keep it secret and never commit `.env.local` to Git!
+## 🌟 ما تم تطويره وتعديله في هذا الإصدار:
+
+1. **دمج الموسوعة الطبية بالكامل ("ودخله كلشي فيه"):**
+   - تم ربط الذكاء الاصطناعي بقاعدة بيانات الدليل الشاملة (أكثر من 800 نصيحة طبية وبنك الأسئلة الطبية).
+   - عند طرح أي سؤال، يقوم النظام تلقائياً بالبحث الذكي في أقسام الدليل (الإسعافات الأولية، صحة المرأة والحمل، صحة الطفل، طب الأسنان، التغذية السليمة، العناية بالبشرة، الصحة النفسية، والأمراض المزمنة) وتزويد الذكاء الاصطناعي بالنصائح ذات الصلة لدعم الإجابة بالمعلومات الموثقة وعرض المصادر للمستخدم.
+
+2. **دعم أحدث نماذج Google Gemini مع التبديل التلقائي (Automatic Failover):**
+   - تم تحديث النماذج من الإصدارات القديمة المعطلة إلى أحدث نماذج:
+     - `gemini-3.5-flash-lite` (النموذج الأساسي فائق السرعة)
+     - `gemini-2.5-flash-lite`
+     - `gemini-3.8-flash`
+     - `gemini-flash-latest`
+     - `gemini-2.5-pro`
+   - في حال كان أي نموذج تحت ضغط مؤقت (503) أو غير متاح، يقوم النظام تلقائياً بالتبديل للنموذج التالي فوراً دون انقطاع الخدمة.
+
+3. **واجهة برمجة تطبيقات كاملة (REST API) جاهزة للرفع والربط الخارجي:**
+   - دعم كامل لـ **CORS** (`*`) بحيث يمكن استدعاء الـ API من أي موقع، تطبيق هاتف (Flutter / React Native)، أو خادم خارجي.
+   - دعم الاستدعاء الفردي (`message`) والاستدعاء متعدد الأدوار (`messages`) لمواصلة الحوار.
+   - إمكانية تمرير مفتاح الـ API إما عبر المتغيرات البيئية أو عبر الترويسات (`x-gemini-key`).
+   - نقطة نهاية استعلامية (`GET /api/chat`) لفحص حالة الـ API والاطلاع على التوثيق الفني والنماذج المتاحة.
+
+4. **إصلاح المشاكل التقنية وملفات البيئة:**
+   - إصلاح ترميز ملفات البيئة (`.env.local` و `.env.example`) من UTF-16LE إلى UTF-8 لضمان قراءة المفاتيح بسلاسة.
+   - حل تعارض توافقية ESLint 9 مع Next.js 15 وإعداد ملف البناء ليعمل بنجاح تام (`Compiled successfully`).
+   - إضافة رابط وصول سريع لـ **قيس AI** في شريط التنقل العلوي (Navbar).
+
+---
+
+## 🚀 طريقة تشغيل المشروع محلياً
+
+1. تثبيت الحزم (إن لم تكن مثبتة):
+   ```bash
+   npm install
+   ```
+
+2. التأكد من وجود مفتاح API في ملف `.env.local`:
+   ```env
+   GEMINI_API_KEY=مفتاح_gemini_الخاص_بك
+   ```
+
+3. تشغيل خادم التطوير:
+   ```bash
+   npm run dev
+   ```
+   أو تشغيل نسخة الإنتاج:
+   ```bash
+   npm run build
+   npm run start
+   ```
+
+4. فتح المتصفح على الرابط:
+   [http://localhost:3000/qais-ai](http://localhost:3000/qais-ai)
+
+---
+
+## 🌐 كيفية رفع ونشر المشروع والـ API (Deployment)
+
+يمكنك رفع المشروع بسهولة تامة إلى أي منصة استضافة سحابية:
+
+### أ) الرفع على منصة Vercel (موصى به - بنقرة واحدة):
+1. ارفع المشروع إلى حسابك على GitHub:
+   ```bash
+   git add .
+   git commit -m "Update Qais AI with full medical knowledge and production API"
+   git push origin main
+   ```
+2. توجه إلى موقع [Vercel](https://vercel.com) وسجل الدخول باستخدام GitHub.
+3. اضغط على **"Add New Project"** واختر مستودع `life-health`.
+4. في قسم **Environment Variables** (المتغيرات البيئية)، أضف المتغير:
+   - **Key:** `GEMINI_API_KEY`
+   - **Value:** مفتاح الـ API الخاص بك
+5. اضغط **Deploy**. ستعمل منصتك والـ API فوراً برابط عالمي سريع!
+
+---
+
+## 🔌 توثيق استخدام الـ API للمطورين
+
+### 1. استعلام حالة الـ API:
+- **المسار:** `GET /api/chat`
+- يعيد معلومات الـ API، الحالة التشغيلية، والنماذج المتاحة.
+
+### 2. إرسال سؤال طبي:
+- **المسار:** `POST /api/chat`
+- **الترويسات (Headers):**
+  ```http
+  Content-Type: application/json
+  x-gemini-key: (اختياري في حال رغبت بتمرير مفتاحك الخاص)
+  ```
+- **جسم الطلب (Body):**
+  ```json
+  {
+    "message": "ما هي خطوات الإسعاف الأولي عند حدوث حروق بسيطة؟"
+  }
+  ```
+
+### 3. إرسال محادثة مستمرة (Multi-Turn):
+  ```json
+  {
+    "messages": [
+      { "role": "user", "content": "ما هي أعراض نقص فيتامين د؟" },
+      { "role": "assistant", "content": "أهلاً بك! تشمل أعراض نقص فيتامين د الشعور بالإرهاق وألم العظام..." },
+      { "role": "user", "content": "وكيف يمكنني تعويضه عبر الغذاء؟" }
+    ]
+  }
+  ```
+
+### 4. مثال بلغة JavaScript (Fetch):
+```javascript
+const response = await fetch('https://your-domain.vercel.app/api/chat', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    message: 'ما هي أعراض ارتفاع ضغط الدم وكيف أتعامل معه؟'
+  })
+});
+
+const data = await response.json();
+console.log(data.response); // إجابة قيس AI
+console.log(data.relevantTips); // النصائح المرجعية من دليل قيس الطبي
+```
+
+### 5. مثال بلغة Python:
+```python
+import requests
+
+url = "https://your-domain.vercel.app/api/chat"
+payload = {
+    "message": "ما هي الأغذية المفيدة لصحة القلب؟"
+}
+
+response = requests.post(url, json=payload)
+data = response.json()
+print("إجابة قيس AI:", data["response"])
+```

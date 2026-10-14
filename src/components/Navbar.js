@@ -31,6 +31,7 @@ export default function Navbar() {
                     <li><Link href="/mental-health" onClick={() => setIsOpen(false)}>النفسية</Link></li>
                     <li><Link href="/chronic-diseases" onClick={() => setIsOpen(false)}>الأمراض المزمنة</Link></li>
                     <li><Link href="/quiz" onClick={() => setIsOpen(false)} style={{ color: 'var(--secondary-color)', fontWeight: 'bold' }}>اختبر معلوماتك 🧠</Link></li>
+                    <li><Link href="/qais-ai" onClick={() => setIsOpen(false)} style={{ color: '#4f46e5', fontWeight: 'bold', background: 'rgba(79, 70, 229, 0.1)', padding: '0.25rem 0.6rem', borderRadius: '8px' }}>قيس AI 🤖</Link></li>
                     <li><Link href="/first-aid" onClick={() => setIsOpen(false)}>الإسعافات</Link></li>
                 </ul>
             </div>
